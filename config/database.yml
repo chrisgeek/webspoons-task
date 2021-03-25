@@ -1,0 +1,29 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: webspoons_task_development
+
+  #username: webspoons_task
+
+  #password:
+
+  #port: 5432
+
+  #schema_search_path: myapp,sharedapp,public
+
+  # Defaults to warning.
+  #min_messages: notice
+
+test:
+  <<: *default
+  database: webspoons_task_test
+
+production:
+  <<: *default
+  database: webspoons_task_production
+  username: webspoons_task
+  password: <%= ENV['WEBSPOONS_TASK_DATABASE_PASSWORD'] %>

@@ -1,0 +1,16 @@
+<h1>New User</h1>
+<%# <%= turbo_frame_tag "user" do %1> %>
+<%# <%= render 'form', user: @user %1> %>
+
+<%# <%= link_to 'Back', users_path %1> %>
+<%# <% end %1> %>
+<%# <%= turbo_frame_tag "user", target: 'top' do %>%>
+<%#   <%= render 'form', user: @user %>%>
+<%# <%end%>%>
+
+<h1>New User</h1>
+<%= turbo_frame_tag "user", target: 'top' do %>
+  <%= render 'form', user: @user %>
+  <%= link_to 'Back', users_path, "data-turbo-frames": "top" %>
+<% end %>
+

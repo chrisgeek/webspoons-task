@@ -1,0 +1,63 @@
+<%= turbo_stream_from @users %>
+<%= turbo_frame_tag "user" do %>
+
+<%= form_tag users_path, method: :get do %>
+  <p> Search for users </p>
+  <%= text_field_tag :query, nil, placeholder: 'Enter search word' %>
+  <%= submit_tag "Search", class: 'btn btn-sm btn-primary' %><span><%= link_to 'Reset', users_path, class: 'btn btn-sm btn-secondary' %></span>
+<% end %>
+
+<p id="notice"><%= notice %></p>
+<h1>Users</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th><%= link_to "Name", sort: "name"%> </th>
+      <th><%= link_to "Email", sort: "email"%> </th>
+      <th><%= link_to "Title", sort: "title"%> </th>
+      <th><%= link_to "Phone", sort: "phone"%> </th>
+      <th><%= link_to "Status", sort: "status"%> </th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody id='users'>
+    <% @users.each do |user| %>
+ <tr>
+     <td><%= user.name %></td>
+     <td><%= user.email %></td>
+     <td><%= user.title %></td>
+     <td><%= user.phone %></td>
+     <td class=<%="#{user.status == 'active' ? 'green' : 'red'}"%>><%= user.status %></td>
+     <td> <%= link_to 'View', user, class: 'btn btn-sm btn-info active' %></td>
+     <td> <%= link_to 'Edit', edit_user_path(user), class: 'btn btn-sm btn-primary' %></td>
+     <td> <%= link_to 'Remove', remove_user_path(user), method: :get, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' %></td>
+     <td><%= link_to user_status(user), toggle_status_user_path(user), data: { confirm: 'Are you sure?' } , class: "btn btn-sm #{user.status == 'active' ? 'btn-danger' : 'btn-info'} " %></td>
+ </tr>
+   <%end%>
+  </tbody>
+</table>
+
+<b>
+<%= paginate @users %>
+<button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-black my-4">New User</button>
+<% end %>
+<div id="id01" class="w3-modal" style="display: none">
+  <div class="w3-modal-content">
+    <div class="w3-container">
+           <h5 class="modal-title" id="exampleModalLabel">New User</h5>
+      <div class="modal-body">
+        <%# <%= turbo_frame_tag "user", src: new_user_path, target: '_top' %1> %>
+        <%= turbo_frame_tag "user" do %>
+          <%= render 'form', user: @user %>
+        <% end %>
+      </div>
+      <div class="modal-footer">
+       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="document.getElementById('id01').style.display='none'">
+        Close
+       </button>
+      </div>
+    </div>
+  </div>
+</div>

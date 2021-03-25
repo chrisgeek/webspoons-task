@@ -1,0 +1,27 @@
+<%= turbo_frame_tag "user" do %>
+<p id="notice"><%= notice %></p>
+<p>
+  <strong>Name:</strong>
+  <%= @user.name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @user.title %>
+</p>
+
+<p>
+  <strong>Phone:</strong>
+  <%= @user.phone %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @user.status %>
+</p>
+<% end %>
